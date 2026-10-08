@@ -1,0 +1,10 @@
+// Blocks access to a route unless the user is logged in via Google OAuth.
+// Passport attaches isAuthenticated() to the request once a session exists.
+const isLoggedIn = (req, res, next) => {
+    if (req.isAuthenticated && req.isAuthenticated()) {
+        return next();
+    }
+    res.status(401).json({ message: 'You must be logged in to access this resource' });
+};
+
+module.exports = { isLoggedIn };
